@@ -60,6 +60,7 @@ Centers - greed cannot be > 90
 Physical defensemen - greed cannot be < 100, faceoffs between 50 and 65
 Other defenseman - faceoffs < 40, greed anything
 Wingers - faceoffs + greed cannot be > 160
+Goalies - greed cannot be < 100
 
 Goalie Endurance:
 Value ~= max # of games
@@ -216,10 +217,10 @@ Notes:
         
  Potential:
   - Goalies:
-      - pots = future overall
+      - pots = future overall (ceiling avg: 100)
   
   - Forwards:
-      - 120s => 90+   ovr (ceilengs avg: ) 90.00 +
+      - 120s => 90+   ovr (ceilengs avg:   90.00+)
       - 110s => 85-89 ovr (ceilings avg:   85.00 -  89.00)
       - 100s => 80-84 ovr (ceilings avg:   80.00 -  84.00)
       - 90s  => 75-79 ovr (ceilings avg:   83.33 -  87.78)
