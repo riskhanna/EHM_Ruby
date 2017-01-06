@@ -1,0 +1,231 @@
+EHM Notes:
+
+Skaters Overall (2000-01 Players for reference)
+86+:   Gretzky/Orr/Lemieux/Howe level (nobody)
+83-85: Generational (Lemieux, Jagr, Lidstrom)
+80-82: Elite, only ~10 players at a time (Sakic, Forsberg, Pronger, Bourque)
+77-79: All Star (Modano, Recchi, MacInnis, Stevens)
+74-76: Top Liner (Turgeon, Bondra, Foote, Hatcher)
+70-73: Second/Third liner (Marleau, Holmstrom, Matvichuk, Kasparaitis)
+65-69: Third/Fourth liner, Best AHLers/Euros (Maltby, Yelle, Odelein, Daneyko)
+60-64: Fringe NHLers, Good AHLers/Euros, Best Juniors
+55-59: Bottom-six AHLers/Euros, Good Juniors
+50-54: Fringe AHLers/Euros, Mediocre Juniors
+40-49: Fringe Juniors
+
+Goalies
+86+:   Peak Hasek/Parent?
+83-85: Generational (Hasek)
+80-82: Elite, ~3 at a time (Roy, Brodeur, Belfour)
+77-79: All Star (Joseph, Kolzig, Burke)
+74-76: Good Starter (Osgood, Richter, Dafoe)
+70-73: Mediocre Starter (Lalime, Turek, Potvin)
+65-69: Fringe Starter, Good Backup, Best AHL/Euro Starter (Cloutier, Dipietro, Kidd)
+60-64: Mediocre/Fringe Backup, Good AHL/Euro Starter, Best Junior Starter (Flaherty, McLean, Wregget)
+55-59: Mediocre AHL/Euro Starter, Good AHL/Euro Backup, Good Junior Starter
+50-54: Mediocre AHL/Euro Backup, Mediocre Junior Starter
+40-49: Fringe Junior Starter
+
+
+2016-17 Ratings (ideas)
+Crosby 82
+Ovechkin 80
+Kane 80
+Kopitar 79
+Toews 78
+Benn 78
+Stamkos 78
+Bergeron 76
+Nash 75
+Hagelin 72
+
+Keith 79
+Karlsson 79
+Subban 77
+McDonagh 76
+Alzner 73
+
+Price 83
+Lundqvist 80
+Rask 78
+Holtby 78
+Luongo 75
+Ward 71
+
+
+
+
+Greed + faceoffs:
+Centers - greed cannot be > 90
+Physical defensemen - greed cannot be < 100, faceoffs between 50 and 65
+Other defenseman - faceoffs < 40, greed anything
+Wingers - faceoffs + greed cannot be > 160
+
+Goalie Endurance:
+Value ~= max # of games
+Max 80 
+
+
+
+EHM rating	
+A+ 100+
+A  90-100
+A- 86-90 
+B  81-85 
+B- 71-80 
+C  61-70 
+C- 51-60 
+D  41-50 
+D- 31-40 
+F  21-30 
+F- 0-20
+
+Pre-start One-time Fixes:
+1) Run fix_low_overall_players to improve terrible players, get skating  and
+	strength to reflect players size.
+2) Run fix_all_players to standardize greed, penalty, faceoffs, etc.
+
+League Start: 
+1) Use 1.15b. Save once and close (no ceilings generated)
+2) Copy potentials from startgame roster file to savegame roster file
+3) Open game file, save it a second time (this generates ceilings)
+4) Adjust some ceilings as you wish
+5) Send 2001 draft picks back to CSB
+    IDEAS FOR LEAGUE START:
+    a) Start game in 1.18, save twice, generate ceilings
+    b) Run "START GAME" script that:
+        i)  copies potentials from startgame roster
+        ii) generates custom made ceilings based on corrects pots
+
+
+Draft: 
+1.15b - 1. Subtract 10 from every skater pot (10% chance you don't subtract)
+		2. Randomly generate goalie pots
+		3. Convert all 30 pots to 60 pots
+		4. Randomly generate all cons
+		
+Every Offseason:
+(after draft, after newly generated staff):
+-adjust scouts stats
+
+(after schedule jump, june 30 to aug 1):
+-adjust new prospect stats
+
+Scoring level:
+140 for Regular Season
+120 for Playoffs
+
+Penalties:
+120 RS
+100 POs
+
+Fighting:
+60 RS
+20 POs
+
+Draft Nationalites (add up to 1001):
+ CAN/USA/RUS/CZE/SWE/FIN/BLR/SVK/NOR/GER/Oth/ITA/AUT/LAT/UKR/SLV/SUI/POL/FRA/JAP/
+ 310/140/ 95/ 70/100/ 65/ 20/ 45/ 20/ 30/  1/  5/ 14/ 20/ 20/ 10/ 20/ 10/  5/  1/
+ 310/140/95/70/100/65/20/45/20/30/1/5/14/20/20/10/20/10/5/1/
+ 
+Staff Tactics:
+- Head Coach dictates Even Strength line tactics
+- Staff running PP dictates PP line tactics
+- Staff running SH dictates SH line tactics
+
+EV:
+	0 = Run and Gun			(RAG)			3ovr + 3skating + 4offense / 10
+	1 = Passing Plays		(PP)			ovr + 3passing +
+	2 = Dump and Chase		(DAC)			
+	3 = Hit and Grind		(HAG)
+	4 = Neutral Zone Trap	(NZT)
+	
+PP:
+	0 = Shooting			(SH)
+	1 = Screen and Shoot	(SAS)
+	2 = Passing Plays		(PP)
+	3 = Crash the Net		(CTN)
+	4 = Shot from Point		(SFP)
+	
+SH:
+	0 = Aggressive			(AGR)
+	1 = Loose Box			(LB)
+	2 = Passive Box			(PB)
+	3 = Small Box			(SB)
+	4 = Tight Box			(TB)
+	
+	
+Lines:
+	- Calculate rating for each player on roster at each position (1LW, 1C, 1RW, 2LW, 2C, 2RW, etc.)
+	- Find which position has the largest discrepency between 1st and 2nd place ratings. Fill that position with player with 1st place rating.
+	- Repeat for each of the 12 forward positions. Then repeat for Defense
+	- For Goalies
+		- backup plays proportional to overall ratio between backup and starter
+		- endurance
+		- back to backs (look at schedule)
+    
+Extra player attributes:
+  - loyalty/desire to win/desire for money
+  - attribute drop per position (consistency, marking, greed, potential)
+
+Extra staff attributes:
+  - potential
+  - line strategies
+  - ice time distribution
+  - preference per position
+  
+  
+Notes:
+  - max # players = 3060?
+    - 30 NHL orgs * 50 players = 1500
+    - 217 non NHL/AHL teams for the remaining 1500 players ~ roughly 7 players per team
+  - Player flux:
+     - 7 draft rounds = 210 players
+     - ~250 new players, ~250 retiring players each year
+     - 15 and 16-year olds (i.e., players to be drafted two drafts from now) will be removed from current game file,
+        placed in "High School" game file consisting of players 40 ovr
+     - Number of players: age breakdown (age as of September, start of season)
+        15: 300 (drafted three drafts from now)
+        16: 300 (drafted two drafts from now)
+        ------------------------------------
+        17:   250 (drafted next year)
+        18:   250
+        19:   250
+        20:   250
+        21:   225
+        22:   200
+        23:   175
+        24:   175
+        25:   175
+        26:   130
+        27:   120
+        28:   110
+        29:   100
+        30:   100
+        31:   90
+        32:   80
+        33:   75
+        34:   70
+        35:   65
+        36:   60
+        37:   45
+        38:   30
+        39:   15
+        40+:  20
+        
+        
+ Potential:
+  - Goalies:
+      - pots = future overall
+  
+  - Forwards:
+      - 120s => 90+   ovr (ceilengs avg: ) 90.00 +
+      - 110s => 85-89 ovr (ceilings avg:   85.00 -  89.00)
+      - 100s => 80-84 ovr (ceilings avg:   80.00 -  84.00)
+      - 90s  => 75-79 ovr (ceilings avg:   83.33 -  87.78)
+      - 80s  => 70-74 ovr (ceilings avg:   87.50 -  92.50)
+      - 70s  => 65-69 ovr (ceilings avg:   92.86 -  98.57)
+      - 60s  => 60-64 ovr (ceilings avg:  100.00 - 106.67)
+      - 50s  => 55-59 ovr (ceilings avg:  110.00 - 118.00)
+  
+  
