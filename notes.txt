@@ -55,19 +55,46 @@ Ward 71
 
 
 
-Greed + faceoffs:
-Centers - greed cannot be > 90
-Physical defensemen - greed cannot be < 100, faceoffs between 50 and 65
-Other defenseman - faceoffs < 40, greed anything
-Wingers - faceoffs + greed cannot be > 160
-Goalies - greed cannot be < 100
+#Greed + faceoffs
+#Centers - greed cannot be > 90
+#Physical defensemen - greed cannot be < 100, faceoffs between 50 and 65
+#Other defenseman - faceoffs < 40, greed anything
+#Wingers - faceoffs + greed cannot be > 160
+#Goalies - greed cannot be < 100
+
+Greed + Faceoffs + Penalty
+Total should be 180 < X < 240 (avg 60 < X < 80)
+(minor exceptions for > 240, including Gretzky and Mario)
 
 Goalie Endurance:
 Value ~= max # of games
 Max 80 
 
 
+94-95 Rough estimate point totals (players playing first-line minutes):
+(Offense rating = OA)
+75 OA = ppg forward, every OA point above/below is +/- 2.5 points 
+90 OA = ppg defenseman, every OA point above/below is +/- 1.5 points
 
+OA    F_points    D_points
+105     155         103
+100     143          95
+95      130          88
+90      118          80
+85      105          73
+80       93          65
+75       80          58
+70       68          50
+65       55          43
+60       43          35
+55       30          28
+50       18         ~20-25
+45      ~10         ~15-20
+
+for 00-01:
+  - 80 OA is ppg for forwards (i.e., shift the above chart up by one)
+  - 100 OA is ppg for dmen (i.e., shift the above chart up by two)
+for 01-02 and deadpuck years, 85 OA is ppg
 EHM rating	
 A+ 100+
 A  90-100
@@ -216,17 +243,74 @@ Notes:
         
         
  Potential:
+  - Skaters
+    - neglect the "player type" component
+    - pot = roughly future overall + 10 (ceiling avg ranges from 80 - 90, extremes are 70 - 100)
   - Goalies:
-      - pots = future overall (ceiling avg: 100)
-  
-  - Forwards:
-      - 120s => 90+   ovr (ceilengs avg:   90.00+)
-      - 110s => 85-89 ovr (ceilings avg:   85.00 -  89.00)
-      - 100s => 80-84 ovr (ceilings avg:   80.00 -  84.00)
-      - 90s  => 75-79 ovr (ceilings avg:   83.33 -  87.78)
-      - 80s  => 70-74 ovr (ceilings avg:   87.50 -  92.50)
-      - 70s  => 65-69 ovr (ceilings avg:   92.86 -  98.57)
-      - 60s  => 60-64 ovr (ceilings avg:  100.00 - 106.67)
-      - 50s  => 55-59 ovr (ceilings avg:  110.00 - 118.00)
-  
-  
+    - pots = roughly future overall + 10 (ceiling avg ranges from 80 - 90, extremes are 70 - 100)
+
+Ceilings = 1Fighting | 2Shooting | 3Playmaking | 4Stickhandling | 5Checking | 6Positioning | 7Hitting | 8Skating | 9Endurance | 10Penalty | 11Faceoffs | 12Leadership | 13Strength 
+
+
+Ex. 1 Pavel Bure
+  90 pot, 70 con, 115 greed
+
+  ceilings (minus fighting):
+    110 + 90 + 110 + 70 + 80 + 70 + 115 + 100 + 75 + 60 + 75 + 80
+    1035 in total (86.25 avg)
+
+  expected:
+    99 + 81 + 99 + 63 + 72 + 63 + 104 + 90 + 68 + 54 + 68 + 72
+    933 in total (77.75 avg)
+
+    + pot+ con + greed = 1208
+      OVR = 1208/15 = 80.5
+      OA  = 269/3 = 93
+      DA  = 198/3 = 66
+
+
+Ex. 2 Kris Draper
+  80 pot, 62 con, 70 greed
+
+  ceilings:
+    65 + 60 + 75 + 115 + 110 + 90 + 105 + 90 + 65 + 110 + 100 + 80
+    1065 in total (88.75 avg)
+
+  expected:
+    52 + 48 + 60 + 92 + 88 + 72 + 84 + 72 + 52 + 88 + 80 + 64
+    852 in total (71 avg)
+
+    + pot + con + greed = 1080
+      OVR = 1064/15 = 70
+      OA  = 160/3 = 53
+      DA  = 252/3 = 84
+
+Ex. 3 Jaromir Jagr
+  95 pot, 93 con, 110 greed
+
+  ceilings (minus fighting):
+    110 + 90 + 110 + 70 + 80 + 70 + 115 + 100 + 75 + 60 + 75 + 80
+    1035 in total (86.25 avg)
+
+  expected:
+    93 + 99 + 99 + 61 + 64 + 57 + 82 + 98 + 70 + 55 + 78 + 99
+    951 in total (79.25 avg)
+
+    + pot+ con + greed = 1232
+      OVR = 1208/15 = 82
+      OA  = 269/3 = 93
+      DA  = 198/3 = 66
+
+
+
+Ex. 3 Brian Leetch
+
+
+
+Ex. 4 Derian Hatcher
+
+
+
+Ex. 5 Mario Lemieux
+
+Populate ceilings either manually (based on TYPE) or inject type into POT for ceiling generation in-game, then switch Pots to future-overall.
