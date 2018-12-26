@@ -1,10 +1,14 @@
 # /usr/bin/env ruby
 
 class Players < Array
-  def sort_by_skill!(skill)
-    self.sort_by! { |player| [-player.skills[skill]] }
+  def sort_by_attribute!(attribute)
+    self.sort_by! { |player| [-player.attributes[attributes]] }
   end
   
+  def sort_by_attribute!(attribute)
+    self.sort_by! { |player| [-player.attributes[attributes]] }
+  end
+
   def sort_by_id!
     self.sort_by! { |player| [player.id] }
   end
