@@ -1,4 +1,5 @@
 require_relative '../global'
+require_relative './player_attributes'
 require 'age_wizard'
 
 class Player
@@ -12,9 +13,53 @@ class Player
     @info = params[:info]
     @ceilings = params[:ceilings]
     @statistics = params[:statistics]
-    @attributes = Attributes.new(params[:attributes], self)
+    @attributes = PlayerAttributes.new(params[:attributes], info[:position])
   end
   
+  def position_adjusted_attributes(position)
+    adjustment = -3 * (10 - info[:position_adjustments][position])
+    position_adjusted_attributes = {
+      :playmaking => adjustment,
+      :shooting => adjustment,
+      :marking => adjustment,
+      :checking => adjustment,
+      :endurance => adjustment,
+      :consistency => adjustment
+    }
+    PlayerAttributes.new(position_adjusted_attributes, position)
+  end
+
+  def teammate_adjusted_attributes(teammates)
+    adjusted_attributes = PlayerAttributes.new({}, nil)
+    teammates.each do |teammate|
+      adjustment = 2 * (info[:chemistry][teammate] || 0)
+      teammate_adjusted_attributes = {
+        :playmaking => adjustment,
+        :shooting => adjustment,
+        :marking => adjustment,
+        :checking => adjustment,
+        :endurance => adjustment,
+        :consistency => adjustment
+      }
+      adjusted_attributes += teammate_adjusted_attributes
+    end
+    adjusted_attributes
+  end
+
+  def get_ev_lineup_score(position, tactic) 
+    attribute_weights = GLOBAL::EV_LINE_TACTICS[tactic][position]
+    calculated_position_adjusted_attributes = position_adjusted_attributes(position)
+    score = 0
+    attribute_weights.each do |attribute, weight|
+      score += calculated_position_adjusted_attributes[attribute] * weight / 100.0
+    end
+    (3*score + calculated_position_adjusted_attributes.overall)/4
+  end
+
+  def get_sp_lineup_score(position, tactic)
+
+  end
+
 
   def expected_skills
     exp = {}
@@ -29,27 +74,30 @@ class Player
 
   
   def is_g?
-    info[:position] == "G"
+    info[:position] == :g
   end
   
+  def is_skater?
+    !is_g?
+  end
   
   def is_d?
-    info[:position] == "D"
+    info[:position] == :d || info[:position] == :rd || info[:position] == :ld
   end
 
 
   def is_c?
-    info[:position] == "C"
+    info[:position] == :c
   end
 
 
   def is_lw?
-    info[:position] == "LW"
+    info[:position] == :lw
   end
 
 
   def is_rw?
-    info[:position] == "RW"
+    info[:position] == :rw
   end
 
 
@@ -123,7 +171,7 @@ class Player
   def was_drafted?
     !!@info[:draft_year]
   end
-  
+
   def is_draftable_age?(draft_year)
     dob = Time.utc(info[:birth_year], info[:birth_month], info[:birth_day])
     (AgeWizard::age(dob, Time.utc(draft_year, 9, 15) >= 18) &&
@@ -174,62 +222,5 @@ class Player
   
   def ==(other)
     return (@id == other.id) && (@name[:first] == other.name[:first]) && (@name[:last] == other.name[:last])
-  end
-end
-
-
-class Attributes < Hash
-  attr_accessor :player
-
-  def initialize(hash, player)
-    @player = player
-    hash.each do |k,v|
-      self[k] = v
-    end
-  end
-
-  def overall
-    if player.is_g?
-      goalie_overall
-    else
-      skater_overall
-    end
-  end
-
-
-  def goalie_overall
-    (1.5*self[:consistency] + self[:glove] + self[:blocker] + self[:pads] + self[:angles] + self[:agility] + self[:rebounds] + self[:endurance]/2.0 + self[:skating]/2.0 + self[:stickhandling]/2.0 + self[:strength]/2.0 + self[:leadership]/4.0 + self[:clutch]/4.0) / 10.0 - 1
-  end
-
-
-  def skater_overall
-    total = 0.0
-    
-    if offense_ability > defense_ability
-      if player.is_d?
-        total += 3.0*offense_ability + 3.0*defense_ability
-      else
-        total += 4.5*offense_ability + 1.5*defense_ability
-      end
-    else
-      if player.is_d?
-        total += 1.5*offense_ability + 4.5*defense_ability
-      else
-        total += 3.0*offense_ability + 3.0*defense_ability
-      end
-    end
-
-    total += self[:consistency] + self[:skating] + self[:strength] + self[:endurance]/2.0 + self[:leadership]/4.0 + self[:clutch]/4.0
-    
-    total / 10.0 - 1
-  end
-
-  def offense_ability
-    (self[:shooting] + self[:playmaking] + self[:stickhandling]) / 3.0
-  end
-
-
-  def defense_ability
-    (self[:marking] + self[:checking] + self[:hitting]) / 3.0
   end
 end
