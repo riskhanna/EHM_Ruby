@@ -59,16 +59,12 @@ class PlayerAttributes < Hash
 
   def +(other)
     h = {}
-    attributes = (self.keys + other.keys).unique
+    attributes = (self.keys + other.keys).uniq
     attributes.each do |attribute|
       h[attribute] = (self[attribute] || 0) + (other[attribute] || 0)
     end
     PlayerAttributes.new(h, self.position)
   end
 
-  
-  def +=(other)
-    self = (self + other)
-  end
 end
 

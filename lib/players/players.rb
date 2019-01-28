@@ -14,7 +14,13 @@ class Players < Array
   end
   
   def sort_by_name!
-    self.sort_by! { |player| [player.name] }
+    self.sort_by! { |player| [player.name[:last], player.name[:first]] }
+  end
+
+  def search(name)
+    self.each do |player|
+      return player if player.full_name == name
+    end
   end
 
   def rw_s

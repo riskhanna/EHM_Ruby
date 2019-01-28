@@ -60,6 +60,7 @@ def parse_players_from_google_sheet
   end
 
   players = Players.new
+  players_hash = {}
 
   range = 'Ratings!A2:CC'
   response = service.get_spreadsheet_values(spreadsheet_id, range)
@@ -67,7 +68,7 @@ def parse_players_from_google_sheet
     name = {}
     info = {}
     
-    id = row[header["id"]]
+    id = row[header["id"]].to_i
     
     name[:first] = row[header["first name"]]
     name[:last] = row[header["last name"]]
@@ -76,6 +77,7 @@ def parse_players_from_google_sheet
     info[:rights] = row[header["team"]]
     info[:team] = info[:rights] if row[header["league"]] == "NHL"
     info[:country] = row[header["nat"]]
+    info[:chemistry] = {}
 
     attributes = PlayerAttributes.new({}, info[:position])
     ceilings = {}
@@ -121,6 +123,7 @@ def parse_players_from_google_sheet
     attributes[:fight] = row[header["fight"]].to_i
     attributes[:injury_resistance] = row[header["inj res"]].to_i
     attributes[:greed] = row[header["greed"]].to_i
+    attributes[:energy] = 100
 
     params = {}
     params[:id] = id
@@ -128,11 +131,34 @@ def parse_players_from_google_sheet
     params[:info] = info
     params[:attributes] = attributes
     params[:ceilings] = ceilings
-    players.push Player.new(params)
+    player = Player.new(params)
+    players.push(player)
+    players_hash[id] = player
+  end
+
+  header_range = 'Chemistry!A1:G1'
+  header_response = service.get_spreadsheet_values(spreadsheet_id, header_range)
+  header = {}
+  header_response.values[0].each_with_index do |att,i|
+    header[att.downcase] = i
+  end
+
+  range = 'Chemistry!A2:G'
+  response = service.get_spreadsheet_values(spreadsheet_id, range)
+  response.values.each do |row|
+    player1 = players_hash[row[header["id1"]].to_i]
+    player2 = players_hash[row[header["id2"]].to_i]
+    score = row[header["chemistry"]].to_i
+    unless !player1 || !player2
+      player1.info[:chemistry][player2] = score
+      player2.info[:chemistry][player1] = score
+    end
   end
   
-  players
+  [players, players_hash]
 end
+
+
 
 def get_teams(players)
   teams = {}
@@ -318,12 +344,10 @@ def get_teams(players)
   pit = Team.new(pit_params)
   teams[:pit] = pit
 
+  teams.each do |team|
+    teams.make_lines
+  end
+
   teams
 end
 
-
-def search(players, name)
-  players.each do |player|
-    return player if "#{player.name[:first]} #{player.name[:last]}" == name
-  end
-end

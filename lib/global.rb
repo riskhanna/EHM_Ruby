@@ -2,9 +2,34 @@
 module GLOBAL
   EHM_PATH = "C:/Program Files (x86)/Eastside Hockey Manager"
 
-  NATIONALITY_ARRAY = ["", "CAN", "USA", "RUS", "CZE", "SWE", "FIN", "BLR", "SVK", "NOR", "GER", "n/a", "ITA", "AUS", "LAT", "UKR", "SLV", "SUI", "POL", "FRA", "JPN"]
-
   TEAM_ARRAY = ["", "ANA", "ATL", "BOS", "BUF", "CGY", "CAR", "CHI", "COL", "CBJ", "DAL", "DET", "EDM", "FLA", "LA", "MIN", "MTL", "NYI", "NYR", "NAS", "NJ", "OTT", "PHI", "PHO", "PIT", "SJ", "STL", "TB", "TOR", "VAN", "WSH"]            
+
+  COUNTRY_INDEX = {
+    :can => 1,
+    :usa => 2,
+    :rus => 3,
+    :cze => 4,
+    :swe => 5,
+    :fin => 6,
+    :blr => 7,
+    :svk => 8,
+    :nor => 9,
+    :ger => 10,
+    :none => 11,
+    :ita => 12,
+    :aus => 13,
+    :lat => 14,
+    :ukr => 15,
+    :slv => 16,
+    :sui => 17,
+    :pol => 18,
+    :fra => 19,
+    :jpn => 20,
+    :kaz => 11,
+    :ltu => 11,
+    :gbr => 11,
+    :irl => 11
+  }
 
   POSITION_INDEX = {
     :g => 1,
