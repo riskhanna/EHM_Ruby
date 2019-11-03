@@ -20,7 +20,7 @@ class Team
   end
 
   def debug_lines
-    warn @lines.map {|k,v| [k, v.map {|pos,player| [pos, player.full_name]}.to_h] }.to_h
+    puts @lines.map {|k,v| [k, v.map {|pos,player| [pos, player.full_name]}.to_h] }.to_h
   end
 
   def make_lines
@@ -82,10 +82,10 @@ class Team
   def append_largest_delta_to_lines(line_ranks, final_lines)
     line, position = get_max_line_rank_delta(line_ranks)
     player = line_ranks[line][position].first.keys.first
-    warn player.full_name
+    #warn player.full_name
     final_lines[line][position] = player
     line_ranks[line].delete(position)
-    warn final_lines.map {|k,v| [k, v.map {|pos,player| [pos, player.full_name]}.to_h] }.to_h
+    #warn final_lines.map {|k,v| [k, v.map {|pos,player| [pos, player.full_name]}.to_h] }.to_h
   end
 
 
@@ -128,7 +128,7 @@ class Team
         end
       end
     end
-    warn h
+    #warn h
     [max_delta_line, max_delta_position]
   end
 

@@ -1,6 +1,6 @@
 require_relative '../global'
 require_relative './player_attributes'
-require 'age_wizard'
+require 'age_calculator'
 
 class Player
   attr_reader :id, :name
@@ -161,9 +161,10 @@ class Player
 
 
   def is_draftable_age?(draft_year)
-    dob = Time.utc(info[:birth_year], info[:birth_month], info[:birth_day])
-    (AgeWizard::age(dob, Time.utc(draft_year, 9, 15) >= 18) &&
-     AgeWizard::age(dob, Time.utc(draft_year, 12, 31) <= 19))
+    dob = Date.new(info[:birth_year], info[:birth_month], info[:birth_day])
+    ac = AgeCalculator.new(dob)
+    (ac.age(asof: Date.new(draft_year, 9, 15)) >= 18) &&
+        (ac.age(asof: Date.new(draft_year, 12, 31)) <= 19)
   end
 
 

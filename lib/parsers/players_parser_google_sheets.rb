@@ -180,9 +180,9 @@ def get_teams(players)
     :id => 1, 
     :name =>  "Scotty Bowman",
     :strategy => {
-      :ev_1 => {:tactic => :passing_plays, :shift_length => 80},
-      :ev_2 => {:tactic => :neutral_zone_trap, :shift_length => 70},
-      :ev_3 => {:tactic => :neutral_zone_trap, :shift_length => 30},
+      :ev_1 => {:tactic => :passing_plays, :shift_length => 70},
+      :ev_2 => {:tactic => :passing_plays, :shift_length => 70},
+      :ev_3 => {:tactic => :neutral_zone_trap, :shift_length => 40},
       :ev_4 => {:tactic => :neutral_zone_trap, :shift_length => 20}
     }
   })
@@ -244,8 +244,8 @@ def get_teams(players)
     :strategy => {
       :ev_1 => {:tactic => :passing_plays, :shift_length => 80},
       :ev_2 => {:tactic => :passing_plays, :shift_length => 50},
-      :ev_3 => {:tactic => :neutral_zone_trap, :shift_length => 50},
-      :ev_4 => {:tactic => :hit_and_grind, :shift_length => 20}
+      :ev_3 => {:tactic => :dump_and_chase, :shift_length => 40},
+      :ev_4 => {:tactic => :hit_and_grind, :shift_length => 30}
     }
   })
 
@@ -274,7 +274,7 @@ def get_teams(players)
     :strategy => {
       :ev_1 => {:tactic => :neutral_zone_trap, :shift_length => 60},
       :ev_2 => {:tactic => :neutral_zone_trap, :shift_length => 60},
-      :ev_3 => {:tactic => :neutral_zone_trap, :shift_length => 50},
+      :ev_3 => {:tactic => :passing_plays, :shift_length => 50},
       :ev_4 => {:tactic => :neutral_zone_trap, :shift_length => 30}
     }
   })
@@ -332,8 +332,8 @@ def get_teams(players)
     :id => 6, 
     :name =>  "Eddie Johnston",
     :strategy => {
-      :ev_1 => {:tactic => :passing_plays, :shift_length => 80},
-      :ev_2 => {:tactic => :passing_plays, :shift_length => 60},
+      :ev_1 => {:tactic => :passing_plays, :shift_length => 70},
+      :ev_2 => {:tactic => :passing_plays, :shift_length => 70},
       :ev_3 => {:tactic => :passing_plays, :shift_length => 50},
       :ev_4 => {:tactic => :dump_and_chase, :shift_length => 10}
     }
@@ -344,8 +344,8 @@ def get_teams(players)
   pit = Team.new(pit_params)
   teams[:pit] = pit
 
-  teams.each do |team|
-    teams.make_lines
+  teams.each do |k,team|
+    team.make_lines
   end
 
   teams
